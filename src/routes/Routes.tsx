@@ -26,7 +26,7 @@ const Tabs = () => (
         if (focused) {
           return;
         }
-        return <Text style={{ fontSize:12 , color: COLORS.tabBarLabelColor}}>{children}</Text>
+        return <Text style={{ fontSize:12 , paddingBottom :5 ,color: COLORS.tabBarLabelColor}}>{children}</Text>
       },
       tabBarIcon: ({ focused }) => {
         let iconName;

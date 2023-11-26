@@ -14,6 +14,7 @@ import Address from '../components/address/Address';
 import Product from '../components/products/Product';
 import {getProductsUrl} from '../service/Apis';
 import axios from 'axios';
+import BannersList from '../components/Banners';
 
 const numColumns = 2;
 
@@ -36,6 +37,11 @@ export default function Home() {
 
   const renderItem = ({item}) => (
     <Product
+    title={item.title}
+    id={item.id} 
+    price={item.price}
+    stock={item.stock}   
+    images={item.images}   
     //  title={item.title} description={item.description}
     />
   );
@@ -56,9 +62,12 @@ export default function Home() {
                 <>
                   <View style={styles.sectionContainer}>
                     <Header userName="Rahul" />
+                    
                     <Search />
                     <Address />
                   </View>
+                  <BannersList />
+
                   <Text style={styles.text}>Recommended</Text>
                 </>
               )}

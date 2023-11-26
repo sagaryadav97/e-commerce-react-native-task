@@ -2,12 +2,15 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import React from 'react';
 import {IMAGES} from '../../utils/images';
 import {COLORS} from '../../utils/colors';
+import { useProducts } from '../../contexts/Product.Context';
 
 export default function Cart() {
+  const {state} = useProducts();
+
   return (
     <View>
       <View style={styles.badge}>
-        <Text style={styles.badgeCount}>3</Text>
+        <Text style={styles.badgeCount}>{state.cart.length}</Text>
       </View>
       <Image style={styles.imageIcon} source={IMAGES.CartIcon} />
     </View>

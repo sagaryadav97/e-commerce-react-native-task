@@ -8,6 +8,7 @@ interface headerProps {
   userName: string;
 }
 const Header = ({userName}: headerProps) => {
+    
   return (
     <View style={styles.headerWrapper}>
       <View style={styles.left}>
