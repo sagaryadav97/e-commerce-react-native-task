@@ -1,13 +1,16 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Product from '../screens/Product';
-import {images} from '../utils/images';
+import { images } from '../utils/images';
 import Favourite from '../screens/Favourite';
 import More from '../screens/More';
+import { COLORS } from '../utils/colors';
+import CustomTabBottom from './CustomTabBottom';
+import Categories from '../screens/Categories';
 
 const Stack = createStackNavigator();
 
@@ -15,145 +18,74 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () => (
   <Tab.Navigator
-    screenOptions={{
+    screenOptions={({ route }) => ({
       headerShown: false,
-      tabBarStyle: {
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-        height: 80,
-        elevation: 14,
-        backgroundColor: 'transparent',
-        shadowRadius: 20,
-        shadowColor: '#00000',
-        shadowOpacity: 0.5,
-        position: 'absolute',
+      // tabBarShowLabel: false,
+      tabBarStyle: styles.tabBarStyle,
+      tabBarLabel: ({ focused, children }) => {
+        if (focused) {
+          return;
+        }
+        return <Text style={{ fontSize:12 , color: COLORS.tabBarLabelColor}}>{children}</Text>
       },
-    }}>
+      tabBarIcon: ({ focused }) => {
+        let iconName;
+
+        if (route.name === 'StoresList') {
+          iconName = focused ? (
+            <Image style={styles.section} source={images.home} />
+          ) : (
+            <Image style={styles.section} source={images.homeClean} />
+          );
+        } else if (route.name === 'Categories') {
+          iconName = focused ? (
+            <Image style={styles.section} source={images.CategoryColor} />
+          ) : (
+            <Image style={styles.section} source={images.Category} />
+          );
+        } else if (route.name === 'Favorite') {
+          iconName = focused ? (
+            <Image style={styles.section} source={images.Heart} />
+          ) : (
+            <Image style={styles.section} source={images.Heart} />
+          );
+        } else if (route.name === 'More') {
+          iconName = focused ? (
+            <Image style={styles.section} source={images.more_vertical} />
+          ) : (
+            <Image style={styles.section} source={images.more_vertical} />
+          );
+        }
+
+        return iconName;
+      },
+    })}>
     <Tab.Screen
       name="StoresList"
       component={Home}
       options={{
-        tabBarActiveBackgroundColor: 'red',
-        tabBarInactiveBackgroundColor: 'red',
-        tabBarLabel: ({focused}) => (
-          <Text
-            style={{
-              fontSize: 12,
-              color: focused ? '#3e5b35' : 'gray',
-              top: -10,
-            }}>
-            Home
-          </Text>
-        ),
-        tabBarIcon: ({focused}) => (
-          <>
-            <View>
-              {focused ? (
-                <View
-                style={{
-                    backgroundColor: 'transparent',
-                    padding: 10,
-                    borderRadius: 50
-                  }}
-                >
-                  <View
-                   style={{
-                    backgroundColor: 'green',
-                    padding: 10,
-                    borderRadius: 50
-                  }}
-                  >
-                <Image style={styles.section} source={images.home} />
-                </View>
-                </View>
-              ) : (
-                <View
-                style={{
-                    backgroundColor: 'transparent',
-                    padding: 10,
-                    borderRadius: 50
-                  }}
-                >
-                  <View
-                   style={{
-                    backgroundColor: 'green',
-                    padding: 10,
-                    borderRadius: 50
-                  }}
-                  >
-                    <Image style={[styles.section]} source={images.homeClean} />
-                    </View>
-                    </View> 
-              )}
-            </View>
-          </>
-        ),
+        tabBarButton: props => <CustomTabBottom route={'StoresList'} {...props} />,
       }}
     />
     <Tab.Screen
-      name="Product"
-      component={Product}
+      name="Categories"
+      component={Categories}
       options={{
-        tabBarLabel: ({focused}) => (
-          <Text
-            style={{
-              fontSize: 12,
-              color: focused ? '#3e5b35' : 'gray',
-              top: -10,
-            }}>
-            Support
-          </Text>
-        ),
-        tabBarIcon: ({focused}) =>
-          focused ? (
-            <Image style={styles.section} source={images.CategoryColor} />
-          ) : (
-            <Image style={styles.section} source={images.Category} />
-          ),
+        tabBarButton: props => <CustomTabBottom route={'Categories'}{...props} />,
       }}
     />
     <Tab.Screen
-      name="Favourite"
+      name="Favorite"
       component={Favourite}
       options={{
-        tabBarLabel: ({focused}) => (
-          <Text
-            style={{
-              fontSize: 12,
-              color: focused ? '#3e5b35' : 'gray',
-              top: -10,
-            }}>
-            Support
-          </Text>
-        ),
-        tabBarIcon: ({focused}) =>
-          focused ? (
-            <Image style={styles.section} source={images.Heart} />
-          ) : (
-            <Image style={styles.section} source={images.Heart} />
-          ),
+        tabBarButton: props => <CustomTabBottom route={'Favorite'}{...props} />,
       }}
     />
     <Tab.Screen
       name="More"
       component={More}
       options={{
-        tabBarLabel: ({focused}) => (
-          <Text
-            style={{
-              fontSize: 12,
-              color: focused ? '#3e5b35' : 'gray',
-              top: -10,
-            }}>
-            Support
-          </Text>
-        ),
-        tabBarIcon: ({focused}) =>
-          focused ? (
-            <Image style={styles.section} source={images.more_vertical} />
-          ) : (
-            <Image style={styles.section} source={images.more_vertical} />
-          ),
+        tabBarButton: props => <CustomTabBottom route={'More'}{...props} />,
       }}
     />
   </Tab.Navigator>
@@ -163,10 +95,9 @@ const RoutesContainer = () => (
   <>
     <Stack.Navigator
       initialRouteName="Tabs"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={Tabs} />
-      {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
-      {/* <Stack.Screen name="Home" component={Home} /> */}
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   </>
 );
@@ -174,8 +105,19 @@ const RoutesContainer = () => (
 export default RoutesContainer;
 
 const styles = StyleSheet.create({
+  tabBarStyle: {
+    backgroundColor: COLORS.transparent,
+    borderTopWidth: 0,
+    elevation: 0,
+    bottom: 0,
+    left: 5,
+    right: 5,
+    height: 60,
+    position: 'absolute',
+    borderTopRightRadius: 20
+  },
   section: {
-    height: 35,
-    width: 35,
+    width: 25,
+    height: 25,
   },
 });
