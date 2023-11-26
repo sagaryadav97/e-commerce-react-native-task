@@ -5,7 +5,7 @@ import Home from '../screens/Home';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Product from '../screens/Product';
-import { images } from '../utils/images';
+import { IMAGES } from '../utils/images';
 import Favourite from '../screens/Favourite';
 import More from '../screens/More';
 import { COLORS } from '../utils/colors';
@@ -33,27 +33,27 @@ const Tabs = () => (
 
         if (route.name === 'StoresList') {
           iconName = focused ? (
-            <Image style={styles.section} source={images.home} />
+            <Image style={styles.section} source={IMAGES.home} />
           ) : (
-            <Image style={styles.section} source={images.homeClean} />
+            <Image style={styles.section} source={IMAGES.homeClean} />
           );
         } else if (route.name === 'Categories') {
           iconName = focused ? (
-            <Image style={styles.section} source={images.CategoryColor} />
+            <Image style={styles.section} source={IMAGES.CategoryColor} />
           ) : (
-            <Image style={styles.section} source={images.Category} />
+            <Image style={styles.section} source={IMAGES.Category} />
           );
         } else if (route.name === 'Favorite') {
           iconName = focused ? (
-            <Image style={styles.section} source={images.Heart} />
+            <Image style={styles.section} source={IMAGES.Heart} />
           ) : (
-            <Image style={styles.section} source={images.Heart} />
+            <Image style={styles.section} source={IMAGES.Heart} />
           );
         } else if (route.name === 'More') {
           iconName = focused ? (
-            <Image style={styles.section} source={images.more_vertical} />
+            <Image style={styles.section} source={IMAGES.more_vertical} />
           ) : (
-            <Image style={styles.section} source={images.more_vertical} />
+            <Image style={styles.section} source={IMAGES.more_vertical} />
           );
         }
 
