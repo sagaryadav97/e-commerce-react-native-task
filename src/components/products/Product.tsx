@@ -17,6 +17,7 @@ import {
   useProducts,
 } from '../../contexts/Product.Context';
 import {FavActionTypes, useFavorites} from '../../contexts/Favorite.Context';
+import { useNavigation } from '@react-navigation/native';
 
 const screenWidth = Dimensions.get('window').width - 40;
 
@@ -30,6 +31,7 @@ const Product = ({title, images, id, price, stock}: ProductType) => {
     title,
     images,
   };
+  const navigation = useNavigation<any>()
   const existingCartItem = state?.cart?.find(item => item.productId === id);
 
   const getProductInCart = (productId: number) => {
@@ -66,7 +68,11 @@ const Product = ({title, images, id, price, stock}: ProductType) => {
       };
 
   return (
-    <View style={styles.productWrapper}>
+    <TouchableOpacity activeOpacity={1} onPress={() => 
+      navigation.navigate('ProductDetails', {
+            productId: id,
+          })
+    } style={styles.productWrapper}>
       <View style={styles.imageFav}>
         {images?.length > 0 ? (
           <Image source={{uri: images[0]}} style={styles.imageFilled} />
@@ -122,7 +128,7 @@ const Product = ({title, images, id, price, stock}: ProductType) => {
           )}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -8,4 +8,5 @@ export const IMAGES = {
     CartIcon: require("../../assets/CartIcon.png"),
     HeartFilled: require("../../assets/HeartFilled.png"),
     ImageGray: require("../../assets/ImageGray.png"),
+    bagBlack: require("../../assets/bag.png"),
   };

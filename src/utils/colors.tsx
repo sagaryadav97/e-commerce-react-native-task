@@ -14,6 +14,9 @@ export const COLORS ={
     addressText: "#F8F9FB",
     black: "#000",
     productName: "#616A7D",
+    yellow: "#F9B023",
+    blue: "#2A4BA0",
+    des: "#8891A5",
     
     
 };

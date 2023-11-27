@@ -5,7 +5,7 @@ import {COLORS} from '../../utils/colors';
 import {useProducts} from '../../contexts/Product.Context';
 import {useNavigation} from '@react-navigation/native';
 
-export default function Cart() {
+export default function CartBlack() {
   const {state} = useProducts();
   const navigation = useNavigation<any>();
 
@@ -17,7 +17,7 @@ export default function Cart() {
         style={styles.badge}>
         <Text style={styles.badgeCount}>{state.cart.length}</Text>
       </TouchableOpacity>
-      <Image style={styles.imageIcon} source={IMAGES.CartIcon} />
+      <Image style={styles.imageIcon} source={IMAGES.bagBlack} />
     </View>
   );
 }
