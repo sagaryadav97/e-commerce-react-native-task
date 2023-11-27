@@ -3,8 +3,7 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Dimensions,
-  ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {COLORS} from '../utils/colors';
@@ -15,8 +14,12 @@ import Product from '../components/products/Product';
 import {getProductsUrl} from '../service/Apis';
 import axios from 'axios';
 import BannersList from '../components/Banners';
+import {ProductType} from '../contexts/Product.Context';
 
 const numColumns = 2;
+interface productProp {
+  item: ProductType;
+}
 
 export default function Home() {
   const [productsData, setProductsData] = useState([]);
@@ -35,45 +38,44 @@ export default function Home() {
     getAllProducts();
   }, []);
 
-  const renderItem = ({item}) => (
+  const renderItem = ({item}: productProp) => (
     <Product
-    title={item.title}
-    id={item.id} 
-    price={item.price}
-    stock={item.stock}   
-    images={item.images}   
-    //  title={item.title} description={item.description}
+      title={item.title}
+      id={item.id}
+      price={item.price}
+      stock={item.stock}
+      images={item.images}
+      //  title={item.title} description={item.description}
     />
   );
 
   return (
     <>
       {/* <ScrollView style={styles.scrollContainer}> */}
-        <View style={styles.body}>
-          {productsData && (
-            <FlatList
-              data={productsData}
-              renderItem={renderItem}
-              numColumns={numColumns}
-              keyExtractor={item => item.id}
-              // onRefresh={() => console.log('refreshing')}
-              contentContainerStyle={styles.list}
-              ListHeaderComponent={() => (
-                <>
-                  <View style={styles.sectionContainer}>
-                    <Header userName="Rahul" />
-                    
-                    <Search />
-                    <Address />
-                  </View>
-                  <BannersList />
-
-                  <Text style={styles.text}>Recommended</Text>
-                </>
-              )}
-            />
-          )}
-        </View>
+      <View style={styles.body}>
+        {productsData.length > 0 ? (
+          <FlatList
+            data={productsData}
+            renderItem={renderItem}
+            numColumns={numColumns}
+            keyExtractor={item => item.id.toString()}
+            contentContainerStyle={styles.list}
+            ListHeaderComponent={() => (
+              <>
+                <View style={styles.sectionContainer}>
+                  <Header userName="Rahul" />
+                  <Search />
+                  <Address />
+                </View>
+                <BannersList />
+                <Text style={styles.text}>Recommended</Text>
+              </>
+            )}
+          />
+        ) : (
+          <ActivityIndicator size={42} color={COLORS.cardBg} />
+        )}
+      </View>
       {/* </ScrollView> */}
     </>
   );
@@ -92,7 +94,6 @@ const styles = StyleSheet.create({
     // argin: 10,
     // width: 300m
     paddingBottom: 80,
-
   },
   text: {
     marginTop: 10,

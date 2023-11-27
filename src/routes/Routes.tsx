@@ -12,7 +12,7 @@ import { COLORS } from '../utils/colors';
 import CustomTabBottom from './CustomTabBottom';
 import Categories from '../screens/Categories';
 import ProductDetails from '../screens/Product';
-import Cart from '../components/Cart/Cart';
+import CartScreen from '../screens/CartScreen';
 
 const Stack = createStackNavigator();
 
@@ -101,7 +101,7 @@ const RoutesContainer = () => (
       <Stack.Screen name="Tabs" component={Tabs} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ProductDetails" component={ProductDetails} />
-      <Stack.Screen name="Cart" component={Cart} />
+      <Stack.Screen name="Cart" component={CartScreen} />
       
     </Stack.Navigator>
   </>
